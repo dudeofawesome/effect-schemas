@@ -30,7 +30,9 @@
     lint: "./scripts/pkg_json.sh concurrently --raw --group 'pnpm:lint:*'",
     'lint:js': 'eslint . --ext ts,json --cache',
     'lint:types': 'tsc --noEmit --pretty',
-    prepack: 'pnpm run build',
+    prepack: 'pnpm run build && ./scripts/convert_pkg_json.sh',
+    // workaround pnpm bug regarding `files` with json5
+    postpack: './scripts/unconvert_pkg_json.sh',
     test: 'vitest',
     'test:debug': 'pnpm run test -- --inspectBrk',
   },
