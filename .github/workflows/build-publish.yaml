@@ -15,10 +15,14 @@ jobs:
     steps:
       - name: 'Setup node 🛎️'
         uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+        with:
+          install-modules: false
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10
+      - name: 'Install node modules 📥'
+        run: 'pnpm install --frozen-lockfile'
       - name: 'Build 🏗️'
         run: 'pnpm run build'
 
@@ -27,10 +31,14 @@ jobs:
     steps:
       - name: 'Setup node 🛎️'
         uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+        with:
+          install-modules: false
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10
+      - name: 'Install node modules 📥'
+        run: 'pnpm install --frozen-lockfile'
       - name: 'Lint 🧪'
         run: 'pnpm run lint'
 
@@ -39,10 +47,14 @@ jobs:
     steps:
       - name: 'Setup node 🛎️'
         uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+        with:
+          install-modules: false
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10
+      - name: 'Install node modules 📥'
+        run: 'pnpm install --frozen-lockfile'
       - name: 'Test 🧪'
         run: 'pnpm run test'
 
@@ -66,6 +78,8 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 10
+      - name: 'Install node modules 📥'
+        run: 'pnpm install --frozen-lockfile'
 
       - name: 'Publish to NPM 🚀'
         env:
