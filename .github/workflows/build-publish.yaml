@@ -13,10 +13,17 @@ jobs:
   build:
     runs-on: 'ubuntu-latest'
     steps:
-      - name: 'Setup node 🛎️'
-        uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+      # - name: 'Setup node 🛎️'
+      #   uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+      - name: 'Checkout Repository 🛎️'
+        uses: 'actions/checkout@v4'
+      - name: 'Use Node.js 📗'
+        uses: 'actions/setup-node@v4'
         with:
-          install-modules: false
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
+          registry-url: '${{ inputs.registry-url }}'
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -29,10 +36,17 @@ jobs:
   lint:
     runs-on: 'ubuntu-latest'
     steps:
-      - name: 'Setup node 🛎️'
-        uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+      # - name: 'Setup node 🛎️'
+      #   uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+      - name: 'Checkout Repository 🛎️'
+        uses: 'actions/checkout@v4'
+      - name: 'Use Node.js 📗'
+        uses: 'actions/setup-node@v4'
         with:
-          install-modules: false
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
+          registry-url: '${{ inputs.registry-url }}'
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -45,10 +59,17 @@ jobs:
   test:
     runs-on: 'ubuntu-latest'
     steps:
-      - name: 'Setup node 🛎️'
-        uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+      # - name: 'Setup node 🛎️'
+      #   uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+      - name: 'Checkout Repository 🛎️'
+        uses: 'actions/checkout@v4'
+      - name: 'Use Node.js 📗'
+        uses: 'actions/setup-node@v4'
         with:
-          install-modules: false
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
+          registry-url: '${{ inputs.registry-url }}'
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -70,10 +91,19 @@ jobs:
       - 'lint'
       - 'test'
     steps:
-      - name: 'Setup node 🛎️'
-        uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+      # - name: 'Setup node 🛎️'
+      #   uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+      #   with:
+      #     install-modules: false
+      - name: 'Checkout Repository 🛎️'
+        uses: 'actions/checkout@v4'
+      - name: 'Use Node.js 📗'
+        uses: 'actions/setup-node@v4'
         with:
-          install-modules: false
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
+          registry-url: '${{ inputs.registry-url }}'
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
