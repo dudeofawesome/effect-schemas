@@ -1,0 +1,78 @@
+name: 'Publish NPM Package'
+
+on:
+  push:
+    branches: ['*']
+    tags-ignore: ['*']
+  pull_request:
+
+permissions:
+  contents: 'read'
+
+jobs:
+  build:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'Setup node 🛎️'
+        uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: 'Build 🏗️'
+        run: 'pnpm run build'
+
+  lint:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'Setup node 🛎️'
+        uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: 'Lint 🧪'
+        run: 'pnpm run lint'
+
+  test:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'Setup node 🛎️'
+        uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: 'Test 🧪'
+        run: 'pnpm run test'
+
+  publish:
+    runs-on: 'ubuntu-latest'
+    environment: 'production'
+    permissions:
+      id-token: 'write'
+      packages: 'write'
+      contents: 'write'
+    needs:
+      - 'build'
+      - 'lint'
+      - 'test'
+    steps:
+      - name: 'Setup node 🛎️'
+        uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+        with:
+          install-modules: false
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: 'Publish to NPM 🚀'
+        env:
+          NODE_AUTH_TOKEN: '${{ secrets.NPM_AUTH_TOKEN }}'
+        # uses: 'dudeofawesome/actions/npm-publish@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
+        run: 'pnpm publish'
+
+      - name: 'Get package version 🔖'
+        id: 'get-package-version'
+        run: 'echo "version=v$(pnpm pkg get version | jq --raw-output)" >> "$GITHUB_OUTPUT"'
