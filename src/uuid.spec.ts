@@ -1,4 +1,4 @@
-import { Effect, Exit, pipe, Schema as S } from 'effect';
+import { Effect, Exit, Schema as S } from 'effect';
 import { describe, it, expect } from '@effect/vitest';
 
 import { UUIDv4 } from './uuid.js';
