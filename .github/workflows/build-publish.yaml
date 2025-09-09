@@ -52,7 +52,10 @@ jobs:
       - name: 'Install node modules 📥'
         run: 'pnpm install --frozen-lockfile'
       - name: 'Lint 🧪'
-        run: 'pnpm run lint'
+        run: |
+          ls -lha node_modules/.bin/
+          pnpm why eslint
+          pnpm run lint
 
   test:
     runs-on: 'ubuntu-latest'
