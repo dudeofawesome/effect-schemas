@@ -20,7 +20,14 @@
       default: './dist/*.js',
     },
   },
-  files: ['./dist/', './src/'],
+  files: [
+    // built output
+    './dist/',
+    // source files, for better editor experience
+    './src/',
+    // ignore test files
+    '!**/*.spec.ts',
+  ],
 
   scripts: {
     build: "./scripts/pkg_json.sh concurrently --raw --group 'pnpm:build:*'",
