@@ -38,6 +38,7 @@
   },
 
   peerDependencies: {
+    '@effect/platform': '>=0.10.0',
     effect: '^3.0.0',
   },
   devDependencies: {
