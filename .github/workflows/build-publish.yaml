@@ -107,9 +107,12 @@ jobs:
       - name: 'Install node modules 📥'
         run: 'pnpm install --frozen-lockfile'
 
-      - name: 'Publish to NPM 🚀'
-        env:
-          NODE_AUTH_TOKEN: '${{ secrets.NPM_AUTH_TOKEN }}'
+      - name: 'Login to npm 🔐'
+        run: |
+          npm set "//registry.npmjs.org/:_authToken" "${{ secrets.NPM_AUTH_TOKEN }}"
+      - name: 'Publish to npm 🚀'
+        # env:
+        #   NODE_AUTH_TOKEN: '${{ secrets.NPM_AUTH_TOKEN }}'
         # uses: 'dudeofawesome/actions/npm-publish@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
         run: 'pnpm publish'
 
