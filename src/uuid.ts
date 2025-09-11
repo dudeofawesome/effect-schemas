@@ -64,7 +64,7 @@ function isUUIDv4(str: string): str is UUIDv4 {
  * Validates that the given string is a valid UUIDv4. Can also allow special
  * UUIDs (such as nil & omni) to pass.
  */
-export const UUIDv4: (opts: {
+export const UUIDv4: (opts?: {
   includeSpecial: boolean;
 }) => S.Schema<UUIDv4, string> = (
   { includeSpecial } = { includeSpecial: true },
