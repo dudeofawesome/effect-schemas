@@ -1,6 +1,6 @@
 {
   "name": "@dudeofawesome/effect-schemas",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A set of common data schemas, written with Effect Schema",
   "keywords": [
     "effect",
