@@ -15,8 +15,11 @@ jobs:
     outputs:
       pnpm: 'pnpm version specified in package.json$.packageManager'
     steps:
+      - name: 'Checkout Repository 🛎️'
+        uses: 'actions/checkout@v4'
       - name: read versions 🔖
         run: |
+          set -e
           echo "pnpm=$(jq --raw-output '.packageManager | split("@")[1]' package.json)" >> "$GITHUB_OUTPUT"
 
   build:
