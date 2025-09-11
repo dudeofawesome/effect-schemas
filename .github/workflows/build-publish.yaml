@@ -13,11 +13,13 @@ jobs:
   read-versions:
     runs-on: 'ubuntu-latest'
     outputs:
-      pnpm: 'pnpm version specified in package.json$.packageManager'
+      # pnpm version specified in package.json$.packageManager
+      pnpm: '${{ steps.read-versions.outputs.pnpm }}'
     steps:
       - name: 'Checkout Repository 🛎️'
         uses: 'actions/checkout@v4'
-      - name: read versions 🔖
+      - name: 'read versions 🔖'
+        id: 'read-versions'
         run: |
           set -e
           echo "pnpm=$(jq --raw-output '.packageManager | split("@")[1]' package.json)" >> "$GITHUB_OUTPUT"
