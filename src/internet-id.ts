@@ -17,6 +17,8 @@ export const UrlOriginString = UrlString.pipe(
         if (url.pathname !== '/') return `Must not have a path`;
         if (url.search !== '') return `Must not have a search string`;
         if (url.hash !== '') return `Must not have a hash string`;
+        if (url.username !== '' || url.password !== '')
+          return `Must not have basic auth`;
         return true;
       }),
       Effect.catchAll(() => Effect.succeed(`Must be a valid URL`)),
@@ -24,6 +26,7 @@ export const UrlOriginString = UrlString.pipe(
   ),
 );
 
-export const EmailString = S.TemplateLiteral(S.String, '@', S.String).pipe(
-  S.pattern(/\S+@\S+/u),
-);
+export type EmailString = `${string}@${string}`;
+
+export const EmailString: () => S.Schema<EmailString> = () =>
+  S.TemplateLiteral(S.String, '@', S.String).pipe(S.pattern(/\S+@\S+/u));

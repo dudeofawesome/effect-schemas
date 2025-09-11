@@ -58,8 +58,9 @@ describe('internet-id', () => {
       'https://example.com/foo',
       'https://example.com#bar',
       'https://example.com?bar=baz',
+      'https://user:pass@example.com',
       'example.com',
-    ])(`shouldn't parse URL with path "%s"`, (str) =>
+    ])(`shouldn't parse URL with extra components "%s"`, (str) =>
       Effect.gen(function* () {
         const result = yield* S.decode(UrlOriginString)(str).pipe(Effect.exit);
         expect(Exit.isFailure(result)).toBe(true);
@@ -67,7 +68,7 @@ describe('internet-id', () => {
     );
   });
 
-  describe('EmailString', () => {
+  describe(EmailString.name, () => {
     it.effect.each([
       'test@example.com',
       'test+plus@example.com',
@@ -76,9 +77,9 @@ describe('internet-id', () => {
       '1@example.com',
       '1a@example.com',
       'test@example',
-    ] as `${string}@${string}`[])(`should parse valid email "%s"`, (str) =>
+    ] as EmailString[])(`should parse valid email "%s"`, (str) =>
       Effect.gen(function* () {
-        const result = yield* S.decode(EmailString)(str).pipe(Effect.exit);
+        const result = yield* S.decode(EmailString())(str).pipe(Effect.exit);
         expect(result).toStrictEqual(Exit.succeed(str));
       }),
     );
@@ -89,15 +90,12 @@ describe('internet-id', () => {
       'test@',
       'example.com',
       '@example.com',
-    ] as (typeof EmailString.Type)[])(
-      `shouldn't parse invalid email "%s"`,
-      (str) =>
-        Effect.gen(function* () {
-          const result = yield* S.decode(UrlOriginString)(str).pipe(
-            Effect.exit,
-          );
-          expect(Exit.isFailure(result)).toBe(true);
-        }),
+      'foo @example.com',
+    ] as EmailString[])(`shouldn't parse invalid email "%s"`, (str) =>
+      Effect.gen(function* () {
+        const result = yield* S.decode(EmailString())(str).pipe(Effect.exit);
+        expect(Exit.isFailure(result)).toBe(true);
+      }),
     );
   });
 });
