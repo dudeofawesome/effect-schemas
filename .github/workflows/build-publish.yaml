@@ -10,8 +10,19 @@ permissions:
   contents: 'read'
 
 jobs:
+  read-versions:
+    runs-on: 'ubuntu-latest'
+    outputs:
+      pnpm: 'pnpm version specified in package.json$.packageManager'
+    steps:
+      - name: read versions 🔖
+        run: |
+          echo "pnpm=$(jq --raw-output '.packageManager | split("@")[1]' package.json)" >> "$GITHUB_OUTPUT"
+
   build:
     runs-on: 'ubuntu-latest'
+    needs:
+      - 'read-versions'
     steps:
       # - name: 'Setup node 🛎️'
       #   uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
@@ -20,7 +31,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: '${{ needs.read-versions.outputs.pnpm }}'
       - name: 'Use Node.js 📗'
         uses: 'actions/setup-node@v4'
         with:
@@ -34,6 +45,8 @@ jobs:
 
   lint:
     runs-on: 'ubuntu-latest'
+    needs:
+      - 'read-versions'
     steps:
       # - name: 'Setup node 🛎️'
       #   uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
@@ -42,7 +55,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: '${{ needs.read-versions.outputs.pnpm }}'
       - name: 'Use Node.js 📗'
         uses: 'actions/setup-node@v4'
         with:
@@ -56,6 +69,8 @@ jobs:
 
   test:
     runs-on: 'ubuntu-latest'
+    needs:
+      - 'read-versions'
     steps:
       # - name: 'Setup node 🛎️'
       #   uses: 'dudeofawesome/actions/node-setup@a850bdff4354bdb891a86116f0378f8a890e2c16' # v1
@@ -64,7 +79,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: '${{ needs.read-versions.outputs.pnpm }}'
       - name: 'Use Node.js 📗'
         uses: 'actions/setup-node@v4'
         with:
@@ -84,6 +99,7 @@ jobs:
       packages: 'write'
       contents: 'write'
     needs:
+      - 'read-versions'
       - 'build'
       - 'lint'
       - 'test'
@@ -97,7 +113,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: '${{ needs.read-versions.outputs.pnpm }}'
       - name: 'Use Node.js 📗'
         uses: 'actions/setup-node@v4'
         with:
