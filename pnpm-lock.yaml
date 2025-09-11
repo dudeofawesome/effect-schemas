@@ -39,6 +39,9 @@ importers:
       '@code-style/typescript-configs':
         specifier: ^2.0.0-34
         version: 2.0.0-34(typescript@5.9.2)
+      '@dudeofawesome/effect-schemas':
+        specifier: 'workspace:'
+        version: 'link:'
       '@effect/eslint-plugin':
         specifier: ^0.3.2
         version: 0.3.2

@@ -63,6 +63,7 @@
     '@code-style/eslint-config-typescript': '^2.0.0-34',
     '@code-style/jest-configs': '^2.0.0-34',
     '@code-style/typescript-configs': '^2.0.0-34',
+    '@dudeofawesome/effect-schemas': 'workspace:',
     '@effect/eslint-plugin': '^0.3.2',
     '@effect/language-service': '^0.38.1',
     '@effect/vitest': '^0.25.1',
