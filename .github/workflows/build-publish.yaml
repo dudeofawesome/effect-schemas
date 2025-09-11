@@ -93,6 +93,8 @@ jobs:
           cache-dependency-path: 'pnpm-lock.yaml'
       - name: 'Install node modules 📥'
         run: 'pnpm install --frozen-lockfile'
+      - name: 'Build 🏗️'
+        run: 'pnpm run build'
       - name: 'Test 🧪'
         run: 'pnpm run test'
 
