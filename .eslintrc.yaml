@@ -13,3 +13,14 @@ extends:
   - '@code-style/eslint-config-esmodule'
 parserOptions:
   ecmaVersion: 2022
+
+rules:
+  json-files/restrict-ranges:
+    # TODO: re-enable once pnpm protocols work
+    - 'off'
+    - - versionHint: 'caret'
+        dependencyTypes: ['dependencies', 'devDependencies']
+      # pnpm protocol support
+      # https://regex101.com/r/f6rw29
+      # - versionRegex: '^((workspace:([*~^>]|>=)(\d+(\.\d+){0,2})?)|(catalog:\w*))$'
+      - versionRegex: '^(workspace|catalog):'

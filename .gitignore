@@ -1,7 +1,6 @@
 # compiled output
 /dist/
 /dudeofawesome-effect-schemas-*.tgz
-/package.json
 
 # dependencies
 node_modules/
