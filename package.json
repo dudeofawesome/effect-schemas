@@ -36,10 +36,11 @@
     "build:js": "esbuild --tsconfig=tsconfig.build.json $(glob 'src/**/*.?(c|m)[jt]s' --ignore '**/*.@(spec|test).*') --outdir=dist --sourcemap=inline --platform=node --target=node18 --format=esm",
     "build:types": "tsc --project tsconfig.build.json --emitDeclarationOnly",
     "check": "concurrently --raw --group 'pnpm:test' 'pnpm:lint'",
+    "clean": "rm -rf dist/ *.tsbuildinfo **/*.tsbuildinfo",
     "lint": "concurrently --raw --group 'pnpm:lint:*'",
     "lint:js": "eslint . --ext ts,json --cache",
     "lint:types": "tsc --noEmit --pretty",
-    "prepack": "pnpm run build",
+    "prepack": "pnpm run clean; pnpm run build",
     "test": "vitest",
     "test:debug": "pnpm run test -- --inspectBrk"
   },
